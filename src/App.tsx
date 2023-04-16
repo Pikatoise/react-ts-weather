@@ -1,9 +1,9 @@
 import React from 'react';
+import styles from "./App.module.css";
 
 function App() {
     return (
-        <div className="App">
-            Hello World!
+        <div className={styles.App}>
         </div>
     );
 }
