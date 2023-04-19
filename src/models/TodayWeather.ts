@@ -11,6 +11,15 @@ export type TodayWeather = {
     }
 
     forecast: {
-        
+        forecastday: FutureDay[];
+    }
+}
+
+export interface FutureDay  {
+    day: {
+        avgtemp_c: number;
+        condition: {
+            icon: string;
+        }
     }
 }

@@ -10,25 +10,30 @@ import CurrentWeatherComponent from "./components/CurrentWeatherComponent/Curren
 
 function App() {
     const [currentCity, setCurrentCity] = useState<string>("Орск");
-    const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather | null>(null); //{ current: { temp_c: 0, is_day: TimeOfDay.DAY, condition: { icon: "", text: "" } } }
+    const [WeatherData, setWeatherData] = useState<TodayWeather | null>(null); //{ current: { temp_c: 0, is_day: TimeOfDay.DAY, condition: { icon: "", text: "" } } }
 
     // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
 
     useEffect(() => {
-        GetTodayWeather();
+        GetWeather();
     }, [currentCity]);
 
-    async function GetTodayWeather() {
-        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/forecast.json?key=${Weather.data}&q=${currentCity}&days=3&aqi=no&alerts=no&lang=ru`)
-            .then(response => setTodayWeatherData(response.data));
+    async function GetWeather() {
+        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/forecast.json?key=${Weather.data}&q=${currentCity}&days=5&aqi=no&alerts=no&lang=ru`)
+            .then(response => {
+                console.log(response.data);
+                setWeatherData(response.data);
+            });
     }
 
     return (
         <div className={styles.App}>
-            <CurrentWeatherComponent city={currentCity} data={todayWeatherData}></CurrentWeatherComponent>
+            <CurrentWeatherComponent city={currentCity} data={WeatherData}>
+
+            </CurrentWeatherComponent>
 
             <video
-                src={todayWeatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
+                src={WeatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
                 loop
                 muted
                 autoPlay
