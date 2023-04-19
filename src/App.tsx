@@ -6,10 +6,20 @@ import axios from "axios";
 import Weather from "./Weather.js";
 import { TimeOfDay } from "./models/TimeOfDay";
 import { TodayWeather } from "./models/TodayWeather";
+import CurrentWeatherComponent from "./components/CurrentWeatherComponent/CurrentWeatherComponent";
 
 function App() {
     const [currentCity, setCurrentCity] = useState<string>("Орск");
-    const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather | null>(null);
+    const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather>({
+        current : {
+            temp_c: 0,
+            is_day: TimeOfDay.DAY,
+            condition: {
+                icon: "",
+                text: ""
+            }
+        }
+    });
 
     // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
 
@@ -27,9 +37,9 @@ function App() {
 
     return (
         <div className={styles.App}>
-            <div className={styles.test}>
+            <CurrentWeatherComponent currentData={todayWeatherData}>
 
-            </div>
+            </CurrentWeatherComponent>
             <video
                 src={todayWeatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
                 loop

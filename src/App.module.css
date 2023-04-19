@@ -14,25 +14,3 @@
     object-fit: cover;
     z-index: -1;
 }
-
-.test{
-    color: #fff;
-    font-family: monospace;
-    font-size: 30px;
-    
-    position: absolute;
-    left: 25%;
-    top: 25%;
-
-    width: 50%;
-    height: 50%;
-
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
