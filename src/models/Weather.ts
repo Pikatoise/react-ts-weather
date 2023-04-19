@@ -1,6 +1,6 @@
 import { TimeOfDay } from "./TimeOfDay";
 
-export type TodayWeather = {
+export type Weather = {
     current: {
         temp_c: number;
         is_day: TimeOfDay;

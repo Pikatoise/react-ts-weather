@@ -3,14 +3,25 @@ import styles from "./App.module.css";
 import nightSkyVideo from "./assets/videos/BlackSky.mp4";
 import daySkyVideo from "./assets/videos/Sky.mp4";
 import axios from "axios";
-import Weather from "./Weather.js";
+import WeatherK from "./Weather.js";
 import { TimeOfDay } from "./models/TimeOfDay";
-import { TodayWeather } from "./models/TodayWeather";
+import { Weather } from "./models/Weather";
 import CurrentWeatherComponent from "./components/CurrentWeatherComponent/CurrentWeatherComponent";
+import FutureWeatherComponent from "./components/FutureWeatherComponent/FutureWeatherComponent";
 
 function App() {
+    const Days: string[] = [
+        "Воскресенье",
+        "Понедельник",
+        "Вторник",
+        "Среда",
+        "Четверг",
+        "Пятница",
+        "Суббота",
+    ];
+
     const [currentCity, setCurrentCity] = useState<string>("Орск");
-    const [WeatherData, setWeatherData] = useState<TodayWeather | null>(null); //{ current: { temp_c: 0, is_day: TimeOfDay.DAY, condition: { icon: "", text: "" } } }
+    const [WeatherData, setWeatherData] = useState<Weather | null>(null);
 
     // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
 
@@ -19,7 +30,7 @@ function App() {
     }, [currentCity]);
 
     async function GetWeather() {
-        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/forecast.json?key=${Weather.data}&q=${currentCity}&days=5&aqi=no&alerts=no&lang=ru`)
+        axios.get<Weather>(`http://api.weatherapi.com/v1/forecast.json?key=${WeatherK.data}&q=${currentCity}&days=5&aqi=no&alerts=no&lang=ru`)
             .then(response => {
                 console.log(response.data);
                 setWeatherData(response.data);
@@ -29,7 +40,13 @@ function App() {
     return (
         <div className={styles.App}>
             <CurrentWeatherComponent city={currentCity} data={WeatherData}>
-
+                {WeatherData?.forecast.forecastday.slice(1, 4).map((fd, index) => {
+                    return <FutureWeatherComponent
+                        Day={Days[(new Date().getDay() + index + 1) % 7]}
+                        Icon={fd.day.condition.icon}
+                        Temp={fd.day.avgtemp_c}
+                        key={index} />;
+                })}
             </CurrentWeatherComponent>
 
             <video

@@ -1,10 +1,10 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { TodayWeather } from "../../models/TodayWeather";
+import { Weather } from "../../models/Weather";
 import styles from "./CurrentWeatherComponent.module.css";
 
 export interface CurrentWeatherComponentProps {
     city: string;
-    data: TodayWeather | null;
+    data: Weather | null;
 }
 
 const CurrentWeatherComponent: FC<PropsWithChildren<CurrentWeatherComponentProps>> = ({ children, ...props }) => {
