@@ -4,7 +4,7 @@ import styles from "./CurrentWeatherComponent.module.css";
 
 export interface CurrentWeatherComponentProps {
     city: string;
-    data?: TodayWeather;
+    data: TodayWeather | null;
 }
 
 const CurrentWeatherComponent: FC<PropsWithChildren<CurrentWeatherComponentProps>> = ({ children, ...props }) => {

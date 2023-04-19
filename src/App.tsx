@@ -10,7 +10,7 @@ import CurrentWeatherComponent from "./components/CurrentWeatherComponent/Curren
 
 function App() {
     const [currentCity, setCurrentCity] = useState<string>("Орск");
-    const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather>({ current: { temp_c: 0, is_day: TimeOfDay.DAY, condition: { icon: "", text: "" } } });
+    const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather | null>(null); //{ current: { temp_c: 0, is_day: TimeOfDay.DAY, condition: { icon: "", text: "" } } }
 
     // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
 
@@ -19,7 +19,7 @@ function App() {
     }, [currentCity]);
 
     async function GetTodayWeather() {
-        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/current.json?key=${Weather.data}&q=${currentCity}&aqi=no&lang=ru`)
+        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/forecast.json?key=${Weather.data}&q=${currentCity}&days=3&aqi=no&alerts=no&lang=ru`)
             .then(response => setTodayWeatherData(response.data));
     }
 

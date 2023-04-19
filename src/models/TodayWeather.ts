@@ -9,4 +9,8 @@ export type TodayWeather = {
             icon: string;
         }
     }
+
+    forecast: {
+        
+    }
 }
