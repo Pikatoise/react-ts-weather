@@ -1,6 +1,12 @@
 .CurrentWeather{
-    color: #fff;
-    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 80px;
+
+    color: rgba(255, 255, 255, 0.9);
+    font-family: Arial;
     font-size: 30px;
     
     position: absolute;
@@ -14,8 +20,67 @@
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+}
+
+.WeatherIcon{
+    display: flex;
+    justify-content: left;
+
+    width: 40%;
+    height: 100%;
+}
+
+.WeatherIcon img{
+    width: 200px;
+    height: 200px;
+}
+
+.WeatherInfo{
+    width: 60%;
+    height: 100%;
+}
+
+.Day{
+    font-size: 18px;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+    margin-left: 2px;
+}
+
+.City{
+    font-size: 50px;
+    font-weight: 500;
+    color: #fff;
+
+    margin-bottom: 15px;
+}
+
+.Temperature{
+    font-size: 20px;
+    font-weight: 500;
+
+    margin-bottom: 15px;
+}
+
+.Temperature span{
+    color: #fff
+}
+
+.Description{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Future{
+    position: absolute;
+    left: 10%;
+    top: 75%;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
+    width: 80%;
+    height: 50%;
 }
