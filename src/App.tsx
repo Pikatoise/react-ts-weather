@@ -8,16 +8,27 @@ import { TimeOfDay } from "./models/TimeOfDay";
 import { TodayWeather } from "./models/TodayWeather";
 
 function App() {
-    const [currentCity, setCurrentCity] = useState<string>("Orsk");
+    const [currentCity, setCurrentCity] = useState<string>("Орск");
     const [todayWeatherData, setTodayWeatherData] = useState<TodayWeather | null>(null);
 
-    axios.get<TodayWeather>(`http://api.weatherapi.com/v1/current.json?key=${Weather.data}&q=${currentCity}&aqi=no`)
-        .then(response => setTodayWeatherData(response.data));
+    // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
+
+    useEffect(() => {
+        GetTodayWeather();
+    }, [currentCity]);
+
+    async function GetTodayWeather() {
+        axios.get<TodayWeather>(`http://api.weatherapi.com/v1/current.json?key=${Weather.data}&q=${currentCity}&aqi=no&lang=ru`)
+            .then(response => {
+                setTodayWeatherData(response.data);
+                console.log("1");
+            });
+    }
 
     return (
         <div className={styles.App}>
             <div className={styles.test}>
-                Hello {currentCity}! {todayWeatherData?.current.temp_c} ℃
+
             </div>
             <video
                 src={todayWeatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
