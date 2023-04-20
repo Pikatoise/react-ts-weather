@@ -8,6 +8,7 @@ import { TimeOfDay } from "./models/TimeOfDay";
 import { Weather } from "./models/Weather";
 import CurrentWeatherComponent from "./components/CurrentWeatherComponent/CurrentWeatherComponent";
 import FutureWeatherComponent from "./components/FutureWeatherComponent/FutureWeatherComponent";
+import { City } from "./models/City";
 
 function App() {
     const Days: string[] = [
@@ -21,26 +22,51 @@ function App() {
     ];
 
     const [currentCity, setCurrentCity] = useState<string>("Орск");
-    const [WeatherData, setWeatherData] = useState<Weather | null>(null);
+    const [inputCity, setInputCity] = useState<string>("");
+    const [weatherData, setWeatherData] = useState<Weather | null>(null);
+    const [cities, setCities] = useState<City[]>([]);
 
-    // axios.get(`http://api.weatherapi.com/v1/search.json?key=${Weather.data}&q=orsk&`).then(response => console.log(response.data));
 
     useEffect(() => {
         GetWeather();
     }, [currentCity]);
 
+    useEffect(() => {
+        if (inputCity.length > 0) {
+            GetCities();
+        }
+    }, [inputCity]);
+
     async function GetWeather() {
-        axios.get<Weather>(`http://api.weatherapi.com/v1/forecast.json?key=${WeatherK.data}&q=${currentCity}&days=5&aqi=no&alerts=no&lang=ru`)
-            .then(response => {
-                console.log(response.data);
-                setWeatherData(response.data);
-            });
+        try {
+            axios.get<Weather>(`http://api.weatherapi.com/v1/forecast.json?key=${WeatherK.data}&q=${currentCity}&days=5&aqi=no&alerts=no&lang=ru`)
+                .then(response => {
+                    console.log(response.data);
+                    setWeatherData(response.data);
+                });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function GetCities() {
+        try {
+            axios.get<City[]>(`http://api.weatherapi.com/v1/search.json?key=${WeatherK.data}&q=${inputCity}&lang=ru`)
+                .then(response => {
+                    console.log(response.data);
+                    setCities(response.data);
+                });
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     return (
         <div className={styles.App}>
-            <CurrentWeatherComponent city={currentCity} data={WeatherData}>
-                {WeatherData?.forecast.forecastday.slice(1, 4).map((fd, index) => {
+            <CurrentWeatherComponent city={currentCity} data={weatherData}>
+                {weatherData?.forecast.forecastday.slice(1, 4).map((fd, index) => {
                     return <FutureWeatherComponent
                         Day={Days[(new Date().getDay() + index + 1) % 7]}
                         Icon={fd.day.condition.icon}
@@ -50,7 +76,7 @@ function App() {
             </CurrentWeatherComponent>
 
             <video
-                src={WeatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
+                src={weatherData?.current.is_day == TimeOfDay.DAY ? daySkyVideo : nightSkyVideo}
                 loop
                 muted
                 autoPlay
