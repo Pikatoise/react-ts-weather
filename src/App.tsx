@@ -9,6 +9,7 @@ import { Weather } from "./models/Weather";
 import CurrentWeatherComponent from "./components/CurrentWeatherComponent/CurrentWeatherComponent";
 import FutureWeatherComponent from "./components/FutureWeatherComponent/FutureWeatherComponent";
 import { City } from "./models/City";
+import { ClearSelectComponent } from "./components/select/ClearSelectComponent/ClearSelectComponent";
 
 function App() {
     const Days: string[] = [
@@ -65,6 +66,8 @@ function App() {
 
     return (
         <div className={styles.App}>
+            <ClearSelectComponent cities={cities} onChangeInput={setInputCity} onClickCity={setCurrentCity} valueInput={inputCity} />
+
             <CurrentWeatherComponent city={currentCity} data={weatherData}>
                 {weatherData?.forecast.forecastday.slice(1, 4).map((fd, index) => {
                     return <FutureWeatherComponent

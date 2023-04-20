@@ -1,0 +1,39 @@
+.Container{
+    position: absolute;
+    left: 1%;
+    top: 3%;
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.ClearSelect{
+    color: rgba(255, 255, 255, 0.9);
+    font-family: Arial;
+    font-size: 20px;
+
+    padding: 10px 0 10px 20px;
+    
+    width: 70%;
+    
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+
+    margin-right: 10px;
+}
+
+.CheckImg{
+    width: 25px;
+    height: 25px;
+
+    filter: invert(93%) sepia(0%) saturate(7489%) hue-rotate(269deg) brightness(80%) contrast(104%);
+
+    transition: all 0.2s linear;
+}
+
+.CheckImg:hover{
+    transform: scale(1.1);
+}
