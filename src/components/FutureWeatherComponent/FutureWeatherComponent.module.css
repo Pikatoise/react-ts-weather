@@ -8,10 +8,10 @@
 
     color: rgba(255, 255, 255, 0.9);
     font-family: Arial;
-    font-size: 28px;
+    font-size: calc(1vw + 1vh + 1vmin);
     
-    width: 30%;
-    height: 100%;
+    width: 40%;
+    height: 80%;
 
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);

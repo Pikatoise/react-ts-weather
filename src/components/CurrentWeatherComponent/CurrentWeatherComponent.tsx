@@ -1,15 +1,17 @@
-import React, { FC, PropsWithChildren } from 'react';
-import { Weather } from "../../models/Weather";
+import { FC } from 'react';
+import { CurrentDayWeather } from "../../models/Weather";
+import { WeekDays } from "../../models/Day";
+import FutureWeatherComponent from "../FutureWeatherComponent/FutureWeatherComponent";
 import styles from "./CurrentWeatherComponent.module.css";
 
 export interface CurrentWeatherComponentProps {
     city: string;
-    data: Weather | null;
+    data: CurrentDayWeather | null;
 }
 
-const CurrentWeatherComponent: FC<PropsWithChildren<CurrentWeatherComponentProps>> = ({ children, ...props }) => {
+const CurrentWeatherComponent: FC<CurrentWeatherComponentProps> = ({ ...props }) => {
     return (
-        <div className={styles.CurrentWeather} {...props}>
+        <div className={styles.CurrentWeather}>
             <div className={styles.WeatherIcon}>
                 <img
                     src={props.data?.current.condition.icon}
@@ -37,7 +39,13 @@ const CurrentWeatherComponent: FC<PropsWithChildren<CurrentWeatherComponentProps
             </div>
 
             <div className={styles.Future}>
-                {children}
+                {props.data?.forecast.forecastday.slice(1, 5).map((fd, index) => {
+                    return <FutureWeatherComponent
+                        Day={WeekDays[(new Date().getDay() + index + 1) % 7]}
+                        Icon={fd.day.condition.icon}
+                        Temp={fd.day.avgtemp_c}
+                        key={index} />;
+                })}
             </div>
         </div>
     );

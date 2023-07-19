@@ -37,3 +37,7 @@
 .CheckImg:hover{
     transform: scale(1.1);
 }
+
+.ClearSelectOption{
+    display: none;
+}

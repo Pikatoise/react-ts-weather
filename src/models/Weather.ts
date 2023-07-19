@@ -1,6 +1,6 @@
-import { TimeOfDay } from "./TimeOfDay";
+import { TimeOfDay } from "./Day";
 
-export type Weather = {
+export type CurrentDayWeather = {
     current: {
         temp_c: number;
         is_day: TimeOfDay;
@@ -11,11 +11,11 @@ export type Weather = {
     }
 
     forecast: {
-        forecastday: FutureDay[];
+        forecastday: FutureDayWeather[];
     }
 }
 
-export interface FutureDay  {
+export interface FutureDayWeather  {
     day: {
         avgtemp_c: number;
         condition: {

@@ -1,23 +1,22 @@
-import React, { FC, PropsWithChildren } from 'react';
-import { City } from "../../../models/City";
+import { FC } from 'react';
+import City from "../../../models/City";
 import styles from "./ClearSelectComponent.module.css";
 import circleCheck from "../../../assets/icons/circle-check-regular.svg";
 
-export interface ClearSelectProps {
+interface ClearSelectProps {
     valueInput: string;
     cities: City[];
     onChangeInput: (input: string) => void;
     onClickCity: (city: string) => void;
 }
 
-export const ClearSelectComponent: FC<ClearSelectProps> = ({ ...props }) => {
+const ClearSelectComponent: FC<ClearSelectProps> = ({ ...props }) => {
     function CheckCity() {
         let isInclude = false;
 
-        for (let i = 0; i < props.cities.length; i++) {
+        for (let i = 0; i < props.cities.length; i++)
             if (props.cities[i].name === props.valueInput)
                 isInclude = true;
-        }
 
         if (isInclude) {
             props.onClickCity(props.valueInput);
@@ -38,7 +37,7 @@ export const ClearSelectComponent: FC<ClearSelectProps> = ({ ...props }) => {
                 {props.cities.map((c, index) =>
                     <option
                         key={index}
-                    >
+                        className={styles.ClearSelectOption} >
                         {c.name}
                     </option>)}
             </datalist>
@@ -47,8 +46,10 @@ export const ClearSelectComponent: FC<ClearSelectProps> = ({ ...props }) => {
                 onClick={() => CheckCity()}
                 style={{ color: "white" }}
             >
-                <img src={circleCheck} className={styles.CheckImg} />
+                <img src={circleCheck} className={styles.CheckImg} alt="check" />
             </button>
         </div>
     );
 };
+
+export default ClearSelectComponent;
